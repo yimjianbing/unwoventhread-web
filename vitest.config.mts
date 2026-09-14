@@ -10,5 +10,5 @@ export default defineConfig({
     include: ['**/*.test.{ts,tsx}'],
     exclude: ['node_modules', '.next'],
   },
-  resolve: { alias: { '@': path.resolve(__dirname, '.') } },
+  resolve: { alias: { '@': path.resolve(import.meta.dirname, '.') } },
 })
