@@ -1,0 +1,2 @@
+.overline{margin:0;padding:18px var(--space-32);background:var(--cream);display:flex;gap:14px;align-items:baseline;justify-content:center;color:var(--red);font:var(--t-micro) var(--font-display);letter-spacing:var(--tracking-wide);text-transform:uppercase}
+.overline b{font-weight:400;opacity:.6}
