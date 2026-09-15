@@ -1,0 +1,83 @@
+/* unwoventhread — red rendition. Fonts are loaded by next/font (app/fonts.ts); see --font-* below. */
+:root{
+  /* ---- Colour: two brand values, everything else derived ---- */
+  --red:#C31C1D;
+  --cream:#EFE7DA;
+
+  --red-deep:#9C1617;      /* hover / press */
+  --red-soft:#D9605F;      /* rules, disabled ink, watermarks */
+  --red-wash:#F6E3DF;      /* tints, selected rows */
+  --cream-deep:#E2D8C8;    /* dividers, sunken paper */
+  --cream-light:#F7F2EA;   /* card ground, one step above the page */
+  --ink:#2A211C;           /* the only near-black; body copy at small sizes */
+  --ink-muted:#7A6C61;     /* captions, labels (4.9:1 on cream) */
+  --white:#FFFFFF;
+
+  --surface-page:var(--cream);
+  --surface-card:var(--cream-light);
+  --surface-inverse:var(--red);
+  --ink-heading:var(--red);
+  --ink-body:var(--ink);
+  --ink-caption:var(--ink-muted);
+  --ink-on-red:var(--cream);
+  --border-hairline:var(--cream-deep);
+  --border-strong:var(--red);
+
+  /* ---- Type ---- */
+  --font-display:var(--font-special-elite),"Cooper BT",Georgia,serif;
+  --font-core:var(--font-cooper),"Cooper BT",Georgia,serif;
+  --weight-light:300;
+  --weight-medium:500;
+  --weight-bold:700;
+  --weight-black:900;
+
+  /* Golden-ratio scale, φ = 1.618, anchored on 16px body.
+     10 ← 16 → 26 → 42 → 68 → 110 → 178 */
+  --t-micro:10px;
+  --t-body:16px;
+  --t-sub:26px;
+  --t-head:42px;
+  --t-display:68px;
+  --t-numeral:110px;
+  --t-numeral-xl:178px;
+
+  --tracking-label:0.14em;
+  --tracking-wide:0.28em;
+  --leading-tight:0.98;
+  --leading-snug:1.18;
+  --leading-normal:1.5;
+
+  /* ---- Space: 4-based ---- */
+  --space-4:4px; --space-8:8px; --space-12:12px; --space-16:16px;
+  --space-24:24px; --space-32:32px; --space-48:48px; --space-64:64px; --space-96:96px;
+  --page-frame:14px;
+  --page-max:1120px;
+  --measure-prose:60ch;
+
+  /* ---- Line & radius ---- */
+  --line-hairline:1px;
+  --line-rule:1.5px;
+  --radius-sm:2px;
+  --radius-card:3px;
+  --radius-pill:999px;
+
+  /* ---- Depth ---- */
+  --shadow-paper:0 18px 50px rgba(42,33,28,0.18), 0 2px 6px rgba(42,33,28,0.10);
+  --shadow-lift:0 34px 80px rgba(42,33,28,0.26), 0 3px 8px rgba(42,33,28,0.12);
+  --scrim:rgba(42,33,28,0.42);
+
+  /* ---- Motion ---- */
+  --dur-fast:140ms;
+  --dur-base:260ms;
+  --dur-slow:620ms;
+  --ease:cubic-bezier(0.22,0.68,0.24,1);
+}
+
+html{-webkit-font-smoothing:antialiased}
+body{margin:0;overflow-x:hidden;background:var(--cream);color:var(--ink-body);font:var(--weight-light) var(--t-body)/var(--leading-normal) var(--font-core)}
+*,*::before,*::after{box-sizing:border-box}
+a{color:var(--red);text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:var(--red-deep)}
+::selection{background:var(--red-wash)}
+:focus-visible{outline:2px solid var(--red-soft);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:1ms!important}}
