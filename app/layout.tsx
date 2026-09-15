@@ -3,6 +3,7 @@ import './tokens.css'
 import { cooper, specialElite } from './fonts'
 import { Grain } from '@/components/Grain'
 import { Frame } from '@/components/Frame'
+import { Nav } from '@/components/Nav'
 
 export const metadata: Metadata = {
   title: 'unwoventhread — loyalty card',
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Grain />
         <Frame />
+        <Nav />
         {children}
       </body>
     </html>

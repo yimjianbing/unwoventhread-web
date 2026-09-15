@@ -1,0 +1,3 @@
+.ticker{border-top:1px solid var(--cream-deep);border-bottom:1px solid var(--cream-deep);overflow:hidden;padding:14px 0;background:var(--cream)}
+.track{display:flex;gap:44px;width:max-content;animation:slide 38s linear infinite;font:var(--t-micro) var(--font-display);letter-spacing:var(--tracking-wide);text-transform:uppercase;color:var(--red)}
+@keyframes slide{to{transform:translateX(-50%)}}
