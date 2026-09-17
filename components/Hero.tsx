@@ -37,12 +37,14 @@ export function Hero({ initial, qrSvg }: Props) {
     // left (partly off-screen), swinging up and right past centre, settling
     // high on the right. Rotation + scale ride along so it reads as a card
     // being carried, not slid.
-    const wide = innerWidth >= 900 ? 1 : 0.3 // phones: gentler sweep
+    // Starts low, left of centre and tilted (partly out of the frame);
+    // as the page scrolls it swings up and lands exactly centered.
+    const wide = innerWidth >= 900 ? 1 : 0.4 // phones: gentler sideways pull
     card.style.transform =
-      `translateX(${((-24 + 46 * e) * wide).toFixed(2)}vw) ` +
-      `rotate(${(-11 + 15 * e).toFixed(2)}deg) ` +
-      `translateY(${(6 - 10 * e).toFixed(2)}%) ` +
-      `scale(${(0.93 + 0.07 * e).toFixed(3)})`
+      `translateX(${((-8 + 8 * e) * wide).toFixed(2)}vw) ` +
+      `rotate(${(-11 + 11 * e).toFixed(2)}deg) ` +
+      `translateY(${(10 - 10 * e).toFixed(2)}%) ` +
+      `scale(${(0.89 + 0.11 * e).toFixed(3)})`
     wrap.toggleAttribute('data-lift', e > 0.75)
     // Background drifts against the scroll (slower on screen = farther away).
     ground.style.transform = `translateY(${((p - 0.5) * 0.32 * r.height).toFixed(1)}px) scale(1.06)`
