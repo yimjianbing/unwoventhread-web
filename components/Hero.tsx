@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import photo from '@/public/images/photo-venue.png'
+import photo from '@/public/images/photo-hill.jpg'
 import { StampCard } from './StampCard'
 import { formatCardDate } from '@/lib/date'
 import { COPY, EVENT } from '@/lib/config'
@@ -37,14 +37,18 @@ export function Hero({ initial, qrSvg }: Props) {
     // left (partly off-screen), swinging up and right past centre, settling
     // high on the right. Rotation + scale ride along so it reads as a card
     // being carried, not slid.
-    // Starts low, left of centre and tilted (partly out of the frame);
-    // as the page scrolls it swings up and lands exactly centered.
+    // 3D flip, amici.com-style: the card starts tilted in space
+    // (top edge tipped back, face turned away) and slightly off-centre,
+    // then rotates flat and lands exactly centered on scroll.
     const wide = innerWidth >= 900 ? 1 : 0.4 // phones: gentler sideways pull
     card.style.transform =
+      `perspective(1400px) ` +
       `translateX(${((-8 + 8 * e) * wide).toFixed(2)}vw) ` +
-      `rotate(${(-11 + 11 * e).toFixed(2)}deg) ` +
-      `translateY(${(10 - 10 * e).toFixed(2)}%) ` +
-      `scale(${(0.89 + 0.11 * e).toFixed(3)})`
+      `rotateX(${(24 - 24 * e).toFixed(2)}deg) ` +
+      `rotateY(${(-14 + 14 * e).toFixed(2)}deg) ` +
+      `rotate(${(-6 + 6 * e).toFixed(2)}deg) ` +
+      `translateY(${(8 - 8 * e).toFixed(2)}%) ` +
+      `scale(${(0.9 + 0.1 * e).toFixed(3)})`
     wrap.toggleAttribute('data-lift', e > 0.75)
     // Background drifts against the scroll (slower on screen = farther away).
     ground.style.transform = `translateY(${((p - 0.5) * 0.32 * r.height).toFixed(1)}px) scale(1.06)`
