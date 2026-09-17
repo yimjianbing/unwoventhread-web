@@ -73,6 +73,12 @@
   --ease:cubic-bezier(0.22,0.68,0.24,1);
 }
 
+/* Resting tilt of the loyalty card (components/StampCard). Gives way on short viewports. */
+:root{--tilt:-14deg}
+@media (max-height:900px){:root{--tilt:-10deg}}
+@media (max-height:760px){:root{--tilt:-6deg}}
+@media (max-height:640px){:root{--tilt:0deg}}
+
 html{-webkit-font-smoothing:antialiased}
 body{margin:0;overflow-x:hidden;background:var(--cream);color:var(--ink-body);font:var(--weight-light) var(--t-body)/var(--leading-normal) var(--font-core)}
 *,*::before,*::after{box-sizing:border-box}
