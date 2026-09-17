@@ -1,5 +1,5 @@
 /** @vitest-environment jsdom */
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, expect, it } from 'vitest'
 import { StampCard } from './StampCard'
 
@@ -16,12 +16,13 @@ const base = {
     { key: 'c', label: 'Follow' },
   ],
   collected: ['a'],
-  reward: 'Collect three.',
+  rewardText: 'Collect three.',
+  redeemedAt: null,
 }
 
 it('renders one slot per action with collected state', () => {
   render(<StampCard {...base} />)
-  const slots = screen.getAllByRole('img', { name: /Stamp \d of 3/ })
+  const slots = screen.getAllByRole('button', { name: /Stamp \d of 3/ })
   expect(slots).toHaveLength(3)
   expect(slots[0]).toHaveAttribute('aria-label', 'Stamp 1 of 3, Visit a booth: collected')
   expect(slots[0]).toHaveAttribute('data-on')
@@ -36,4 +37,12 @@ it('renders date, meta and reward copy', () => {
   expect(screen.getByText('Saturday')).toBeInTheDocument()
   expect(screen.getByText('Jia Wen')).toBeInTheDocument()
   expect(screen.getByText('Collect three.')).toBeInTheDocument()
+})
+
+it('tapping a slot stamps it and updates the reward line', () => {
+  render(<StampCard {...base} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Stamp 2 of 3, Take a photostrip: not yet' }))
+  expect(screen.getByRole('button', { name: 'Stamp 2 of 3, Take a photostrip: collected' })).toHaveAttribute('data-on')
+  fireEvent.click(screen.getByRole('button', { name: 'Stamp 3 of 3, Follow: not yet' }))
+  expect(screen.getByText('All five. Show this at the counter for your matcha.')).toBeInTheDocument()
 })

@@ -12,7 +12,8 @@
 .micro{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;padding:1.8cqh 0;font:var(--t-micro)/1.7 var(--font-display);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-muted)}
 .micro b{font-weight:400;color:var(--ink)}
 .slots{display:flex;gap:var(--space-12);margin:auto 0 1.6cqh}
-.slot{width:44px;height:44px;border-radius:50%;border:var(--line-rule) solid var(--red);background:none;display:grid;place-items:center;position:relative;overflow:hidden}
+.slot{width:44px;height:44px;border-radius:50%;border:var(--line-rule) solid var(--red);background:none;display:grid;place-items:center;position:relative;overflow:hidden;cursor:pointer;padding:0}
+.slot:focus-visible{outline:2px solid var(--red-soft);outline-offset:3px}
 .slot i{position:absolute;inset:0;background:var(--red);border-radius:50%;transform:scale(0);transition:transform var(--dur-base) var(--ease)}
 .slot em{position:relative;font:italic var(--weight-light) var(--t-body)/1 var(--font-core);color:var(--red);transition:color var(--dur-base) var(--ease)}
 .slot[data-on] i{transform:scale(1)}

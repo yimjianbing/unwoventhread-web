@@ -2,10 +2,9 @@
 
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import photo from '@/public/images/photo-fabric-rolls.png'
+import photo from '@/public/images/photo-venue.png'
 import { StampCard } from './StampCard'
 import { formatCardDate } from '@/lib/date'
-import { rewardCopy } from '@/lib/reward'
 import { COPY, EVENT } from '@/lib/config'
 import type { CardState } from '@/lib/card-state'
 import styles from './Hero.module.css'
@@ -66,10 +65,6 @@ export function Hero({ initial, qrSvg }: Props) {
         { label: 'Follow', value: COPY.handle },
       ]
   const slots = state ? state.slots : EVENT.actions.map((a) => ({ key: a.key, label: a.label }))
-  const reward = state
-    ? rewardCopy(state.collected.length, state.slots.length, state.redeemedAt, state.event.rewardText)
-    : EVENT.rewardText
-
   return (
     <section className={styles.stage} ref={stageRef}>
       <div className={styles.ground} ref={groundRef}>
@@ -83,11 +78,12 @@ export function Hero({ initial, qrSvg }: Props) {
           day={date.day}
           weekday={date.weekday}
           meta={meta}
-          slots={slots}
-          collected={state?.collected ?? []}
-          reward={reward}
-          qrSvg={qrSvg}
-        />
+        slots={slots}
+        collected={state?.collected ?? []}
+        rewardText={state?.event.rewardText ?? EVENT.rewardText}
+        redeemedAt={state?.redeemedAt ?? null}
+        qrSvg={qrSvg}
+      />
       </div>
     </section>
   )

@@ -1,12 +1,15 @@
 .pill{position:relative;overflow:hidden;height:34px;padding:0 20px;border-radius:var(--radius-pill);background:var(--cream);border:1px solid var(--red);color:var(--red);font:var(--t-micro) var(--font-display);letter-spacing:var(--tracking-label);text-transform:uppercase;cursor:pointer;display:grid;place-items:center;text-decoration:none}
 .pill span{display:block;transition:transform var(--dur-base) var(--ease)}
-.pill span+span{position:absolute;left:0;right:0;top:0;height:100%;display:grid;place-items:center;transform:translateY(100%)}
-.pill:hover span{transform:translateY(-100%)}
+/* The hidden label is pushed PAST the edge (110%, +2px) so no sliver of it
+   shows through the border box — height:100% is the content box (32px) while
+   the pill is 34px tall, and 100% left a 2px sliver of the next label. */
+.pill span+span{position:absolute;left:0;right:0;top:0;height:100%;display:grid;place-items:center;transform:translateY(110%) translateY(2px)}
+.pill:hover span{transform:translateY(-110%) translateY(-2px)}
 .pill:hover span+span{transform:translateY(0)}
 
 .cta{display:inline-flex;align-items:center;overflow:hidden;height:48px;padding:0 28px;border-radius:var(--radius-pill);background:var(--red);border:var(--line-rule) solid var(--red);color:var(--cream);font:var(--weight-medium) var(--t-body) var(--font-core);cursor:pointer;position:relative;text-decoration:none}
 .cta span{transition:transform var(--dur-base) var(--ease)}
-.cta span+span{position:absolute;left:28px;top:0;height:100%;display:flex;align-items:center;transform:translateY(100%)}
+.cta span+span{position:absolute;left:28px;top:0;height:100%;display:flex;align-items:center;transform:translateY(120%) translateY(3px)}
 .cta:hover{background:var(--red-deep);color:var(--cream)}
-.cta:hover span{transform:translateY(-100%)}
+.cta:hover span{transform:translateY(-120%) translateY(-3px)}
 .cta:hover span+span{transform:translateY(0)}
