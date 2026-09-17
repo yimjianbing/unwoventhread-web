@@ -33,9 +33,19 @@ export function Hero({ initial, qrSvg }: Props) {
       const r = stage.getBoundingClientRect()
       const p = Math.min(1, Math.max(0, (innerHeight - r.top) / (innerHeight + r.height)))
       const e = Math.min(1, p * 1.9)
-      card.style.transform = `rotate(${(-8 + 8 * e).toFixed(2)}deg) translateY(${(6 - 10 * e).toFixed(2)}%) scale(${(0.94 + 0.06 * e).toFixed(3)})`
-      wrap.toggleAttribute('data-lift', e > 0.75)
-      ground.style.transform = `translateY(${((p - 0.5) * -0.15 * r.height).toFixed(1)}px)`
+    // The card travels across the viewport as the page scrolls: in from the
+    // left (partly off-screen), swinging up and right past centre, settling
+    // high on the right. Rotation + scale ride along so it reads as a card
+    // being carried, not slid.
+    const wide = innerWidth >= 900 ? 1 : 0.3 // phones: gentler sweep
+    card.style.transform =
+      `translateX(${((-24 + 46 * e) * wide).toFixed(2)}vw) ` +
+      `rotate(${(-11 + 15 * e).toFixed(2)}deg) ` +
+      `translateY(${(6 - 10 * e).toFixed(2)}%) ` +
+      `scale(${(0.93 + 0.07 * e).toFixed(3)})`
+    wrap.toggleAttribute('data-lift', e > 0.75)
+    // Background drifts against the scroll (slower on screen = farther away).
+    ground.style.transform = `translateY(${((p - 0.5) * 0.32 * r.height).toFixed(1)}px) scale(1.06)`
     }
     const schedule = () => {
       if (raf === null) raf = requestAnimationFrame(apply)
