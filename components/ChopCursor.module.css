@@ -1,0 +1,7 @@
+.badge{position:fixed;left:0;top:0;z-index:45;width:56px;height:56px;border-radius:50%;background:rgba(239,231,218,.84);border:1px solid var(--red);color:var(--red);display:grid;place-items:center;font:var(--t-micro) var(--font-display);letter-spacing:var(--tracking-label);text-transform:uppercase;pointer-events:none;opacity:0;will-change:transform;transition:opacity var(--dur-fast) var(--ease)}
+.badge[data-show]{opacity:1}
+/* Press: the badge shrinks for the 140ms the pointer is down, then springs back on --ease (no overshoot). */
+.badge[data-press]{transform-origin:center}
+.badge[data-press]::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid var(--red);animation:press var(--dur-fast) var(--ease) both}
+@keyframes press{from{transform:scale(1)}to{transform:scale(.88)}}
+.hide,.hide *{cursor:none!important}

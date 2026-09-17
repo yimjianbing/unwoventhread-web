@@ -16,12 +16,21 @@
 .micro{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;padding:1.8cqh 0;font:var(--t-micro)/1.7 var(--font-display);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--ink-muted)}
 .micro b{font-weight:400;color:var(--ink)}
 .slots{display:flex;gap:var(--space-12);margin:auto 0 1.6cqh}
-.slot{width:44px;height:44px;border-radius:50%;border:var(--line-rule) solid var(--red);background:none;display:grid;place-items:center;position:relative;overflow:hidden;cursor:pointer;padding:0}
+.slot{width:44px;height:44px;border-radius:50%;border:var(--line-rule) solid var(--red);background:none;display:grid;place-items:center;position:relative;overflow:hidden;cursor:pointer;padding:0;--chop-rot:0deg}
 .slot:focus-visible{outline:2px solid var(--red-soft);outline-offset:3px}
-.slot i{position:absolute;inset:0;background:var(--red);border-radius:50%;transform:scale(0);transition:transform var(--dur-base) var(--ease)}
-.slot em{position:relative;font:italic var(--weight-light) var(--t-body)/1 var(--font-core);color:var(--red);transition:color var(--dur-base) var(--ease)}
-.slot[data-on] i{transform:scale(1)}
-.slot[data-on] em{color:var(--cream)}
+/* The fill is the chop: an inked red disc that lands at a slight random tilt (--chop-rot,
+   set per slot by StampCard). Un-stamping scales it back out on the base transition. */
+.slot i{position:absolute;inset:0;background:var(--red);border-radius:50%;transform:rotate(var(--chop-rot)) scale(0);opacity:0;transition:transform var(--dur-base) var(--ease),opacity var(--dur-base) var(--ease)}
+/* Ink grain: the page's feTurbulence tile, offset by the tilt so no two chops share a mottle. */
+.slot i::after{content:"";position:absolute;inset:0;border-radius:50%;opacity:.42;mix-blend-mode:soft-light;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");background-position:calc(var(--chop-rot) * 4) calc(var(--chop-rot) * -3)}
+.slot em{position:relative;font:italic var(--weight-light) var(--t-body)/1 var(--font-core);color:var(--red);transition:color var(--dur-base) var(--ease),transform var(--dur-base) var(--ease)}
+.slot[data-on] i{transform:rotate(var(--chop-rot)) scale(1);opacity:1}
+.slot[data-on] em{color:var(--cream);transform:rotate(var(--chop-rot))}
+/* Only a chop pressed in this session plays the landing: it comes down from 1.3x and settles, once. */
+.slot[data-fresh] i{animation:chop var(--dur-base) var(--ease) both}
+.slot[data-fresh] em{animation:chop-ink var(--dur-base) var(--ease) both}
+@keyframes chop{from{transform:rotate(var(--chop-rot)) scale(1.3);opacity:0}45%{opacity:1}to{transform:rotate(var(--chop-rot)) scale(1);opacity:1}}
+@keyframes chop-ink{from{color:var(--red);transform:rotate(var(--chop-rot)) scale(1.3)}45%{color:var(--cream)}to{color:var(--cream);transform:rotate(var(--chop-rot)) scale(1)}}
 .reward{font:italic var(--weight-light) var(--t-body)/1.35 var(--font-core);color:var(--ink);text-align:center;margin:0;max-width:30ch}
 .tail{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-16);margin-top:1.6cqh}
 .qr{width:clamp(56px,11cqh,80px);flex:0 0 auto}

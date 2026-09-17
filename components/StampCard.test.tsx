@@ -46,3 +46,25 @@ it('tapping a slot stamps it and updates the reward line', () => {
   fireEvent.click(screen.getByRole('button', { name: 'Stamp 3 of 3, Follow: not yet' }))
   expect(screen.getByText('All five. Show this at the counter for your matcha.')).toBeInTheDocument()
 })
+
+it('a chop lands with a stable random tilt; only slots stamped this session are fresh', () => {
+  const { rerender } = render(<StampCard {...base} />)
+  const preStamped = screen.getByRole('button', { name: /Stamp 1 of 3/ })
+  expect(preStamped).toHaveAttribute('data-on')
+  expect(preStamped).not.toHaveAttribute('data-fresh')
+
+  const slot = screen.getByRole('button', { name: /Stamp 2 of 3/ })
+  fireEvent.click(slot)
+  expect(slot).toHaveAttribute('data-on')
+  expect(slot).toHaveAttribute('data-fresh')
+  const rot = parseFloat(slot.style.getPropertyValue('--chop-rot'))
+  expect(Math.abs(rot)).toBeLessThanOrEqual(8)
+  expect(Math.abs(rot)).toBeGreaterThan(0)
+
+  rerender(<StampCard {...base} rewardText="changed" />)
+  expect(parseFloat(slot.style.getPropertyValue('--chop-rot'))).toBe(rot)
+
+  fireEvent.click(slot)
+  expect(slot).not.toHaveAttribute('data-on')
+  expect(slot).not.toHaveAttribute('data-fresh')
+})
