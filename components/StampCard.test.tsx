@@ -68,3 +68,26 @@ it('a chop lands with a stable random tilt; only slots stamped this session are 
   expect(slot).not.toHaveAttribute('data-on')
   expect(slot).not.toHaveAttribute('data-fresh')
 })
+
+it('clicking the paper (not a slot) presses an emblem chop at the pointer, capped at 12', () => {
+  const { container } = render(<StampCard {...base} />)
+  const card = container.querySelector('#card') as HTMLElement
+  const chops = () => container.querySelectorAll('img[data-chop]')
+  expect(chops()).toHaveLength(0)
+
+  fireEvent.click(card, { clientX: 100, clientY: 120 })
+  expect(chops()).toHaveLength(1)
+  const first = chops()[0] as HTMLElement
+  const rot = parseFloat(first.style.getPropertyValue('--chop-rot'))
+  expect(Math.abs(rot)).toBeLessThanOrEqual(20)
+  const ink = parseFloat(first.style.getPropertyValue('--chop-ink'))
+  expect(ink).toBeGreaterThanOrEqual(0.6)
+  expect(ink).toBeLessThanOrEqual(0.95)
+
+  // A slot press is a slot chop, never an emblem.
+  fireEvent.click(screen.getByRole('button', { name: /Stamp 2 of 3/ }))
+  expect(chops()).toHaveLength(1)
+
+  for (let i = 0; i < 14; i++) fireEvent.click(card, { clientX: 50 + i, clientY: 60 })
+  expect(chops()).toHaveLength(12)
+})

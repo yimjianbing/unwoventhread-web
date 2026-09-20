@@ -31,6 +31,11 @@
 .slot[data-fresh] em{animation:chop-ink var(--dur-base) var(--ease) both}
 @keyframes chop{from{transform:rotate(var(--chop-rot)) scale(1.3);opacity:0}45%{opacity:1}to{transform:rotate(var(--chop-rot)) scale(1);opacity:1}}
 @keyframes chop-ink{from{color:var(--red);transform:rotate(var(--chop-rot)) scale(1.3)}45%{color:var(--cream)}to{color:var(--cream);transform:rotate(var(--chop-rot)) scale(1)}}
+/* Free emblem chops: pressed onto the paper wherever the pointer lands (amici.com's footer stamps).
+   The layer is inside the card so impressions ride its rotation; pointer-events off so the slots stay tappable. */
+.chops{position:absolute;inset:0;pointer-events:none;z-index:2}
+.chop{position:absolute;width:clamp(56px,18cqw,88px);height:auto;translate:-50% -50%;rotate:var(--chop-rot);opacity:var(--chop-ink);mix-blend-mode:multiply;animation:emblem var(--dur-base) var(--ease) both}
+@keyframes emblem{from{transform:scale(1.2);opacity:0}45%{opacity:var(--chop-ink)}to{transform:scale(1);opacity:var(--chop-ink)}}
 .reward{font:italic var(--weight-light) var(--t-body)/1.35 var(--font-core);color:var(--ink);text-align:center;margin:0;max-width:30ch}
 .tail{width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-16);margin-top:1.6cqh}
 .qr{width:clamp(56px,11cqh,80px);flex:0 0 auto}

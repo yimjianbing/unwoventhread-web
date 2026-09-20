@@ -1,6 +1,6 @@
 export const EVENT = {
   slug: 'pilot-market',
-  name: 'Pilot Market',
+  name: 'Saturday Market',
   date: '2026-11-07', // YYYY-MM-DD; the card's month/day/weekday derive from this
   venue: 'Tiong Bahru CC',
   rewardText: 'Collect five and take home a matcha, on us.',
